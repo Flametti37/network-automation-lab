@@ -1,11 +1,11 @@
 all:
   hosts:
-    6800:
+    "6800":
       ansible_host: 192.168.251.61
       ansible_user: "{{ lookup('env', 'SSH_USER') }}"
       ansible_ssh_pass: "{{ lookup('env', 'PASS_6800') }}"
       ansible_become_password: "{{ lookup('env', 'PASS_6800') }}"
-    2821:
+    "2821":
       ansible_host: 192.168.251.90
       ansible_user: "{{ lookup('env', 'SSH_USER') }}"
       ansible_ssh_pass: "{{ lookup('env', 'PASS_2821') }}"
