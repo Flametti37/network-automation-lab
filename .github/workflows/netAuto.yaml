@@ -4,12 +4,6 @@ name: netAuto
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -33,11 +27,12 @@ jobs:
           PASS_6800: ${{ secrets.PASS_6800 }}
           PASS_2821: ${{ secrets.PASS_2821 }}
 
-        run: ansible-playbook -i inventory.yaml ciscoConf.yaml
+        run: ansible-playbook -i ansibleFiles/inventory.yaml ansibleFiles/ciscoConf.yaml
 
 
       - name: push backups to github
         run: |
+          git add .
           git commit -m "Device Backups"
           # push
           git push ${{ secrets.GIT_TOKEN_REPO }}
