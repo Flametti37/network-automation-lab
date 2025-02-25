@@ -27,14 +27,17 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Runs deviceConf_andBackup.yaml
-        
+
         env:
           SSH_USER: ${{ secrets.SSH_USER }}
           PASS_6800: ${{ secrets.PASS_6800 }}
           PASS_2821: ${{ secrets.PASS_2821 }}
 
         run: ansible-playbook -i inventory.yaml ciscoConf.yaml
-        
+
 
       - name: push backups to github
-        run: git commit -m
+        run: |
+          git commit -m "Device Backups"
+          # push
+          git push ${{ secrets.GIT_TOKEN_REPO }}
