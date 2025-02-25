@@ -1,0 +1,128 @@
+Building configuration...
+
+
+Current configuration : 1653 bytes
+!
+! Last configuration change at 17:47:50 EST Sun Feb 23 2025 by gabrielp
+version 15.1
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R2821
+!
+boot-start-marker
+boot system flash c2800nm-advipservicesk9-mz.151-4.M.bin
+boot system flash:/c2800nm-advipservicesk9-mz.151-4.M.bin
+boot system flash 
+boot-end-marker
+!
+!
+logging buffered 4096 informational
+logging console notifications
+enable secret 5 $1$ld8B$YnMaDPyZOEo.gHl1ogXZZ1
+!
+no aaa new-model
+!
+clock timezone EST -5 0
+!
+dot11 syslog
+ip source-route
+!
+!
+ip cef
+!
+!
+!
+no ip domain lookup
+ip domain name 2821.bosco.local
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+voice-card 0
+!
+crypto pki token default removal timeout 0
+!
+!
+!
+!
+license udi pid CISCO2821 sn FHK1310F2AH
+username gabrielp password 0 bosco
+!
+redundancy
+!
+!
+ip ssh version 2
+! 
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 10.255.255.255 255.255.255.255
+!
+interface GigabitEthernet0/0
+ ip address 192.168.251.90 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ ip address 192.168.252.1 255.255.255.0
+ duplex auto
+ speed auto
+!
+router ospf 1
+ router-id 10.255.255.255
+ auto-cost reference-bandwidth 1000
+ network 192.168.251.0 0.0.0.255 area 0
+ network 192.168.252.0 0.0.0.255 area 1
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+!
+ip route 0.0.0.0 0.0.0.0 192.168.251.1
+!
+logging esm config
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+mgcp profile default
+!
+!
+!
+!
+!
+!
+line con 0
+line aux 0
+line vty 0 4
+ login local
+ transport input ssh
+!
+scheduler allocate 20000 1000
+ntp server 192.168.251.60
+end
